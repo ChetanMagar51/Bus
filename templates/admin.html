@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"> -->
+    <style>
+        /* admin.css */
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        /* Heading */
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Paragraph */
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Navigation */
+        nav {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav ul li a {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to Admin Dashboard</h1>
+        <p>Total Bookings: {{ bookings_count }}</p>
+        <p>Total Revenue: ₹{{ revenue }}</p>
+
+        <nav>
+            <ul>
+                <li><a href="/managebuses">Manage Buses</a></li>
+                <li><a href="/manageBooking">Manage Bookings</a></li>
+                <li><a href="#">Manage Users</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        // admin.js
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Example: Add dynamic greeting based on the time of day
+            const hours = new Date().getHours();
+            const greetingElement = document.querySelector("h1");
+
+            let greetingMessage;
+            if (hours < 12) {
+                greetingMessage = "Good Morning, Admin!";
+            } else if (hours < 18) {
+                greetingMessage = "Good Afternoon, Admin!";
+            } else {
+                greetingMessage = "Good Evening, Admin!";
+            }
+
+            greetingElement.textContent = greetingMessage;
+
+            // Example: Add hover animation for navigation links
+            const navLinks = document.querySelectorAll("nav ul li a");
+            navLinks.forEach(link => {
+                link.addEventListener("mouseover", () => {
+                    link.style.transform = "scale(1.1)";
+                });
+                link.addEventListener("mouseout", () => {
+                    link.style.transform = "scale(1)";
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>

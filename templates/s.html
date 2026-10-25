@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Bus Ticket</title>
+    <link rel="stylesheet" href="static/css/styles.css"> <!-- Assuming you have a styles.css -->
+    <style>
+        /* styles.css */
+
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Page Title */
+h1 {
+    text-align: center;
+    color: #444;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+/* Subheading */
+h2 {
+    font-size: 1.4em;
+    color: #555;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Passenger Form Styles */
+.passenger-form {
+    background: #f7f7f7;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.passenger-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.passenger-form input,
+.passenger-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    font-size: 1em;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.add-passenger-btn {
+    background-color: #007bff;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+button.add-passenger-btn:hover {
+    background-color: #0056b3;
+}
+
+button.submit-btn {
+    background-color: #28a745;
+    width: 100%;
+}
+
+button.submit-btn:hover {
+    background-color: #1e7e34;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    button {
+        font-size: 0.9em;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Your Bus Ticket</h1>
+        <h4></h4>
+
+        <!-- Travel Details Form -->
+        <form action="/submit_booking" method="POST">
+            <!-- bus detail should be show here -->
+            <h2>Passenger Details</h2>
+            <div id="passenger-container">
+                <div class="passenger-form">
+                    <label for="passenger_name_1">Name:</label>
+                    <input type="text" id="passenger_name_1" name="passenger_name[]" required>
+                    <label for="passenger_age_1">Age:</label>
+                    <input type="number" id="passenger_age_1" name="passenger_age[]" required>
+                    <label for="passenger_gender_1">Gender:</label>
+                    <select id="passenger_gender_1" name="passenger_gender[]" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="button" id="add-passenger" class="add-passenger-btn">Add More Passengers</button>
+            <br>
+
+            <button type="submit" class="submit-btn">Book Ticket</button>
+            <button type="button" ><a href="home">cancle</a></button>
+            
+        </form>
+    </div>
+
+    <script>
+        // Add event listener to the "Add More Passengers" button
+        let passengerCount = 1;
+        document.getElementById('add-passenger').addEventListener('click', function() {
+            passengerCount++;
+
+            // Create a new passenger form dynamically
+            let passengerContainer = document.getElementById('passenger-container');
+            let newPassengerForm = document.createElement('div');
+            newPassengerForm.classList.add('passenger-form');
+            newPassengerForm.innerHTML = `
+                <label for="passenger_name_${passengerCount}">Name:</label>
+                <input type="text" id="passenger_name_${passengerCount}" name="passenger_name[]" required>
+                <label for="passenger_age_${passengerCount}">Age:</label>
+                <input type="number" id="passenger_age_${passengerCount}" name="passenger_age[]" required>
+                <label for="passenger_gender_${passengerCount}">Gender:</label>
+                <select id="passenger_gender_${passengerCount}" name="passenger_gender[]" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            `;
+
+            // Append the new passenger form to the container
+            passengerContainer.appendChild(newPassengerForm);
+        });
+    </script>
+</body>
+</html>

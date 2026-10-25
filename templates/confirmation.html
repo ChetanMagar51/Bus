@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #05aea0;
+            margin-bottom: 1rem;
+        }
+
+        .details {
+            text-align: left;
+            margin: 1rem 0;
+        }
+
+        .details p {
+            margin: 0.5rem 0;
+        }
+
+        .buttons {
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #05aea0;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 0.5rem;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #048e8a;
+        }
+
+        .ticket-box {
+            padding: 1rem;
+            border: 1px solid #05aea0;
+            border-radius: 10px;
+            margin-top: 1rem;
+            background: #e6f7f6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Booking Confirmation</h2>
+        <p>Thank you for your booking! Your ticket has been successfully reserved.</p>
+
+        <div class="details">
+            <h3>Booking Details</h3>
+            <div class="ticket-box" id="ticketDetails">
+                <p><strong>Booking ID:</strong> <span id="bookingId">{{ booking_id}}</span></p>
+                <p><strong>Bus Number:</strong> {{ bus[0]}}</p>
+                <p><strong>Route:</strong> {{bus[1]}} to {{bus[2]}} </p>
+                <p><strong>Date:</strong> {{ bus[4]}}</p>
+                <p><strong>Passengers:</strong></p>
+                <ul id="passengerList">
+                    {% for passenger in passengers %}
+                    
+                    <li>name:{{ passenger[2] }} age: {{passenger[3]}} gender:{{passenger[4]}} </li>
+                    <li>seat no:{{ passenger[6] }}</li>
+                    {% endfor %}
+                </ul>
+                <p><strong>Total Price:</strong> ₹500</p>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn" id="downloadTicket">Download PDF</button>
+            <!-- <button class="btn" id="emailTicket">Email Ticket</button> -->
+            <a href="/home" class="btn">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+
+
+        // PDF Download functionality (using jsPDF)
+        document.getElementById('downloadTicket').addEventListener('click', () => {
+            const ticketDetails = document.getElementById('ticketDetails').innerText;
+            const pdf = new jsPDF();
+            pdf.text('Ticket Confirmation', 10, 10);
+            pdf.text(ticketDetails, 10, 20);
+            pdf.save('ticket.pdf');
+        });
+
+        // Email Ticket Placeholder
+        document.getElementById('emailTicket').addEventListener('click', () => {
+            alert('This feature is not yet implemented.');
+        });
+    </script>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        document.addEventListener("keydown", function (e) {
+            if ((e.which || e.keyCode) == 116 || (e.ctrlKey && e.which == 82)) {
+                e.preventDefault();
+                alert("Reload is disabled on this page.");
+            }
+        });
+
+
+    
+    // PDF Download functionality (using jsPDF)
+    document.getElementById('downloadTicket').addEventListener('click', () => {
+        const ticketDetails = document.getElementById('ticketDetails');
+
+            // Create a new jsPDF instance
+            const {jsPDF} = window.jspdf;
+            const pdf = new jsPDF();
+
+            // Title of the PDF
+            pdf.setFontSize(16);
+            pdf.text('Ticket Confirmation', 10, 10);
+
+            // Get the content of the ticketDetails div
+            const content = ticketDetails.innerText;
+
+            // Add the ticket content to the PDF
+            pdf.setFontSize(12);
+            pdf.text(content, 10, 20);
+
+            // Save the PDF
+            pdf.save('ticket.pdf');
+    });
+    
+    </script>
+</body>
+
+</html>

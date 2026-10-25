@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between; /* Space between the two divs */
+            align-items: center; /* Align them vertically */
+            height: 100vh; /* Full viewport height */
+            padding: 20px;
+        }
+
+        .login-container {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .login-container .error-message {
+            color: #ff0000;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #45a049;
+        }
+
+        .login-container a {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+
+        .flash {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            color: #ff0000;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .flash {
+            animation: slideIn 0.5s ease-out;
+        }
+
+
+        /* .left-div {
+            background-color: #4caf50;
+            /* background for left div 
+            color: white;
+            
+             padding: 20px;
+            border-radius: 8px;
+         */
+
+        .right-div {
+            /* background-color: #2196f3; 
+            Blue background for right div
+            color: white; */
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            /* Align items on left and right */
+            align-items: center;
+            /* Vertically center the divs */
+            height: 100vh;
+            /* Full height */
+            padding: 0 20px;
+            /* Add some padding */
+            background-color: #f4f4f4;
+            /* Background color for demonstration */
+        }
+
+        /* 
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* Two equal columns 
+            height: 100vh;
+            align-items: center;
+             Vertically center 
+            padding: 0 20px;
+        } 
+        */
+
+        .left-div {
+            justify-self: start;
+            /* Align to the left */
+        }
+
+        .right-div {
+            justify-self: end;
+            /* Align to the right */
+        }
+        .popular-routes {
+    background: #f9f9f9;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.popular-routes h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #007bff;
+}
+
+.routes {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+.route-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    max-width: 250px;
+    transition: transform 0.3s;
+}
+
+.route-card:hover {
+    transform: translateY(-10px);
+}
+
+/* 
+.route-card h3 {
+    /* font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem; 
+} */
+
+.route-card p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.btn-primary.small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    background: #ffcc00;
+    transition: background 0.3s;
+}
+
+.btn-primary.small:hover {
+    background: #e6b800;
+}
+
+
+
+/* Adjusting layout for mobile view */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack the content vertically on smaller screens */
+    }
+
+    .left-div, .right-div {
+        width: 100%; /* Full width for both divs */
+        margin: 10px 0; /* Add some space between divs */
+    }
+
+    .login-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .route-card {
+        max-width: 100%; /* Ensure route cards take full width on small screens */
+        margin-bottom: 1rem; /* Add space between cards */
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"],
+    .login-container button {
+        padding: 12px; /* Larger input fields and buttons on mobile */
+        font-size: 16px;
+        width: 90%;
+    }
+
+    .login-container h1 {
+        font-size: 20px; /* Reduce font size for heading on small screens */
+        margin-bottom: 15px;
+    }
+
+    .popular-routes h2 {
+        font-size: 2rem; /* Adjust heading font size */
+    }
+
+    .routes {
+        flex-direction: column; /* Stack route cards vertically */
+        gap: 1rem;
+    }
+
+    .route-card {
+        width: 95%;
+        padding: 1.5rem; /* Adjust padding for better readability */
+    }
+
+    .btn-primary.small {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .flash {
+        font-size: 12px; /* Adjust font size for flashes */
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container input[type="text"],
+    .login-container input[type="password"],
+    .login-container button {
+        font-size: 14px; /* Adjust font size for very small screens */
+    }
+
+    .login-container h1 {
+        font-size: 18px; /* Smaller heading font size for tiny screens */
+    }
+
+    .popular-routes h2 {
+        font-size: 1.8rem; /* Slightly smaller heading */
+    }
+
+    .route-card {
+        padding: 1rem; /* Smaller padding for route cards */
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-div">
+            <section class="popular-routes">
+                <h2>Popular Routes</h2>
+                <div class="routes">
+                    <div class="route-card">
+                        <h3>Delhi to Jaipur</h3>
+                        <p>Starting from ₹350</p>
+                        <!-- <a href="#" class="btn-primary small">Book Now</a> -->
+                    </div>
+                    <div class="route-card">
+                        <h3>Mumbai to Pune</h3>
+                        <p>Starting from ₹300</p>
+                        <!-- <a href="#" class="btn-primary small">Book Now</a> -->
+                    </div>
+                    <div class="route-card">
+                        <h3>Bangalore to Chennai</h3>
+                        <p>Starting from ₹450</p>
+                        <!-- <a href="#" class="btn-primary small">Book Now</a> -->
+                    </div>
+                    <div class="route-card">
+                        <h3>Hyderabad to Goa</h3>
+                        <p>Starting from ₹550</p>
+                        <!-- <a href="#" class="btn-primary small">Book Now</a> -->
+                    </div>
+                    <div class="route-card">
+                        <h3>Delhi to Jaipur</h3>
+                        <p>Starting from ₹350</p>
+                        <!-- <a href="#" class="btn-primary small">Book Now</a> -->
+                    </div>
+                    <div class="route-card">
+                        <h3>Mumbai to Pune</h3>
+                        <p>Starting from ₹300</p>
+                        <!-- <a href="#" class="btn-primary small">Book Now</a> -->
+                    </div>
+                </div>
+            </section>
+        
+        </div>
+        <div class="right-div">
+            <div class="login-container">
+                <h1>Login</h1>
+                <div>
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="flash {{ error }}">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <form action="/login_user" method="POST">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <a href="/forgot-password">Forgot Password?</a>
+                <a href="/signup">Don't have an account? Register</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        setTimeout(function () {
+            const flashes = document.querySelectorAll('.flash');
+            flashes.forEach(flash => flash.style.display = 'none');
+        }, 10000); // 10 seconds
+    </script>
+
+
+</body>
+
+</html>

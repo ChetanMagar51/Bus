@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Bus</title>
+    <style>
+        /* General styles for the body and container */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Header styles */
+        h1 {
+            font-size: 24px;
+            color: #05aea0;
+            margin-bottom: 20px;
+        }
+
+        /* Label and input styles */
+        form label {
+            display: block;
+            font-weight: bold;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        form input:focus {
+            border-color: #05aea0;
+            outline: none;
+        }
+
+        /* Button styles */
+        button.btn {
+            background: #05aea0;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button.btn:hover {
+            background: #04897d;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            form label {
+                font-size: 14px;
+            }
+
+            form input {
+                font-size: 14px;
+            }
+
+            button.btn {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Update Bus</h1>
+        <form action="/update" method="POST">
+            <label for="bus_name">Bus Name:</label>
+            <input type="text" id="bus_name" name="bus_name" value="{{ bus[2]}}" required>
+
+            
+
+            <label for="bus_id">Bus No:</label>
+            <input type="text" value="{{ bus[1] }}" readonly>
+            <input type="hidden" id="bus_id" name="bus_id" value="{{ bus[0] }}"> <!-- bus_id is now passed -->
+
+
+            <label for="from">from:</label>
+            <input type="text" id="from" name="from" value="{{ bus[3] }}" required>
+
+
+            <label for="to">to:</label>
+            <input type="text" id="to" name="to" value="{{ bus[4] }}" required>
+
+            <label for="date">date:</label>
+            <input type="date" id="date" name="date" value="{{ bus[5] }}" required>
+
+            <label for="seats">Seats:</label>
+            <input type="number" id="seats" name="seats" value="{{ bus[7] }}" required>
+
+            <label for="date2"> Arivel date:</label>
+            <input type="date" id="date" name="date2" value="{{ bus[6] }}" required>
+
+            <label for="price">Price (₹):</label>
+            <input type="number" id="price" name="price" value="{{ bus[8] }}" required>
+
+            <button type="submit" class="btn">Update Bus</button>
+            <a class="btn" href="javascript:history.back()"><button type="button" class="btn">back</button></a>
+               
+        </form>
+    </div>
+    <script>
+         const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+            const day = String(today.getDate()).padStart(2, '0');
+    
+            // Set the min attribute of the date picker
+            const datePicker = document.getElementById('date');
+            datePicker.min = `${year}-${month}-${day}`;
+
+    </script>
+</body>
+
+</html>

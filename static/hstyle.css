@@ -1,0 +1,269 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+background: url("https://media.istockphoto.com/id/1154164634/photo/white-bus-traveling-on-the-asphalt-road-around-line-of-trees-in-rural-landscape-at-sunset.jpg?s=1024x1024&w=is&k=20&c=DpsdnUa4Hpk1Hi8g6N71mnbd_FnH9zXiEkbm3XTG61k=") no-repeat center center/cover ;
+    /* line-height: 1.6; */
+    color: #333;
+    
+    background-repeat: no-repeat;
+    
+}
+
+/* Header */
+.header {
+    /* background: #77b0ec; */
+    color: white;
+    padding: 10px 20px;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Hero Section */
+.hero {
+    /* background: url('../images/hero-banner.jpg') no-repeat center center/cover; */
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+}
+
+/* Search Section */
+.search {
+    /* background: #05aea0;  */
+
+    background: white;
+    
+    padding: 20px ;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.search .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search form {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search .form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.search .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.search .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search .btn {
+    padding: 10px 20px;
+    background: #10a793;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search .btn:hover {
+    background: #c9602f;
+}
+
+/* Footer */
+/* .footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    /* padding: 10px 20px; */
+*/
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header */
+.header {
+    
+    background: #05aea0;
+    color: white;
+    padding: 10px 20px;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Search Section */
+.search-results {
+    background: #f4f4f4;
+    padding: 20px 0;
+}
+
+.search-results .container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.search-results h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-results table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.search-results table th,
+.search-results table td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.search-results table th {
+    background-color: #0056b3;
+    color: white;
+}
+
+.search-results table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.search-results table tr:hover {
+    background-color: #e2e2e2;
+}
+
+.search-results a {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.search-results a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.form-group input, .form-group select {
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.form-group .full-width {
+    width: 100%;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.checkbox-group label {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input {
+    margin-right: 5px;
+}
+
+/* Buttons */
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+

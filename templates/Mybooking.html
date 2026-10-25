@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        /* Styling for My Bookings Page */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #05aea0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #05aea0;
+        }
+
+        .booking-card {
+            border: 1px solid #05aea0;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #e6f7f6;
+        }
+
+        .booking-card h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .booking-card p {
+            margin: 0.3rem 0;
+        }
+
+        .actions {
+            margin-top: 1rem;
+            text-align: right;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #05aea0;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #048e8a;
+        }
+
+        .no-bookings {
+            text-align: center;
+            color: #999;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #05aea0;
+            color: white;
+            padding: 1rem 2rem;
+        }
+
+        .navbar-logo a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-links a:hover {
+            color: #ddd;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #05aea0;
+            color: white;
+            padding: 1rem 2rem;
+
+        }
+
+        .navbar-links {
+            margin-left: 43%;
+        }
+
+        .navbar-logo a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+
+        }
+
+        .navbar-links a:hover {
+            color: #dddddd;
+        }
+
+
+
+
+        .navbar a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header */
+        .header {
+            background: #05aea0;
+            color: #dd0f0f;
+            padding: 1rem 0;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 15px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #dedae0;
+            font-size: 1rem;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Search Results Section */
+        .search-results {
+            padding: 2rem 15px;
+        }
+
+        .search-results .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #05aea0;
+        }
+
+        /* Cards Layout */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: #159533;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            color: #05aea0;
+        }
+
+        .card p {
+            margin: 0.5rem 0;
+            color: #555;
+        }
+
+        .card .price {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card .book-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: #05aea0;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">BusBook</div>
+            <nav class="navbar">
+                <a href="/home">Home</a>
+                <!-- <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+                <a href="contact.html">Contact Us</a> -->
+                {% if 'username' in session %}
+                <span>{{ session['username'] }}</span>
+                <a href="mybooking">Booking Tickets</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+                <a href="contact.html">Contact Us</a>
+                {% else %}
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+                <a href="contact.html">Contact Us</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    {% if buses %}
+
+    <h1>My Bookings</h1>
+    {% for booking_id, details in bookings.items() %}
+    <div>
+        <h2>Booking ID: {{ booking_id }}</h2>
+        <p>Bus ID: {{ details.bus_id }}</p>
+        <p>Travel Date: {{ details.travel_date }}</p>
+        <p>Departure Time: {{ details.departure_time }}</p>
+        <p>Total Price: {{ details.total_price }}</p>
+        <p>Status: {{ details.status }}</p>
+        <p>Created At: {{ details.created_at }}</p>
+
+        <h3>Passengers:</h3>
+        <ul>
+            {% for passenger in details.passengers %}
+            <li>
+                {{ passenger.name }} ({{ passenger.age }} years, {{ passenger.gender }})
+                - Seat No: {{ passenger.seat_no }}, Price: {{ passenger.price }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <hr>
+     {% endfor %}
+    <!-- {% else %}
+    <p>No Booking</p> 
+    <a class="btn" href="javascript:history.back()"><button type="button" class="btn">back to home</button></a>
+
+     {% endif %}  -->
+
+
+
+
+
+
+     <script>
+        async function downloadTicket(bookingId) {
+            const bookingCard = document.querySelector(`[data-booking-id="${bookingId}"]`);
+            const doc = new jspdf.jsPDF();
+
+            let content = '';
+            bookingCard.querySelectorAll('p, h3, ul li').forEach((el) => {
+                content += el.textContent + '\n';
+            });
+
+            doc.text(content, 10, 10);
+            doc.save(`Ticket_${bookingId}.pdf`);
+        }
+    </script> 
+</body>
+
+</html>

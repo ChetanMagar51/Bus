@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>manage booking</title>
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background-color: #f4f4f4;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .btn {
+            margin: 10px 0;
+            display: inline-block;
+            background: #05aea0;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Manage Bookings</h1>
+        <input type="text" id="searchBooking" placeholder="Search by Booking ID or Name">
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Passenger Name</th>
+                    <th>Bus</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            
+
+
+            {% if passengers %}
+            {% for passenger in passengers %}
+
+            <tbody id="busTable">
+                <tr>
+
+                    <td>{{ passengers[0] }}</td>
+                    <td>{{passengers[2]}}</td>
+                    <td>{{ bus[1] }} to {{ bus[2]}}</td>
+                    <td>{{bus[3]}}</td>
+                    <td>
+                        <a href="/cancelTicket/{{ passengers[0] }}">Cancel</a>
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <p>No buses found.</p>
+                <!-- <a class="btn" href="javascript:history.back()"><button type="button" class="btn">back to -->
+                <!-- home</button></a> -->
+                <a href="admin.html">back to Home</a>
+
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- <style>
+        document.addEventListener('DOMContentLoaded', function () {
+                const bookingTable=document.getElementById('bookingTable');
+                const searchInput=document.getElementById('searchBooking');
+
+                // Placeholder data
+                const bookings=[ {
+                    id: 101, name: 'John Doe', bus: 'Express 101', date: '2024-12-20', status: 'Confirmed'
+                }
+
+                ,
+                {
+                id: 102, name: 'Jane Smith', bus: 'Superfast 202', date: '2024-12-21', status: 'Pending'
+            }
+
+            ,
+            ];
+
+            const renderBookings=(filter='')=> {
+                bookingTable.innerHTML='';
+
+                bookings .filter(b=> b.name.toLowerCase().includes(filter.toLowerCase()) || b.id.toString().includes(filter)) .forEach(booking=> {
+                        const row=document.createElement('tr');
+
+                        row.innerHTML=` <td>$ {
+                            booking.id
+                        }
+
+                        </td> <td>$ {
+                            booking.name
+                        }
+
+                        </td> <td>$ {
+                            booking.bus
+                        }
+
+                        </td> <td>$ {
+                            booking.date
+                        }
+
+                        </td> <td>$ {
+                            booking.status
+                        }
+
+                        </td> <td> <button class="edit-btn" >Edit</button> <button class="cancel-btn" >Cancel</button> </td> `;
+                        bookingTable.appendChild(row);
+                    });
+            }
+
+            ;
+
+            searchInput.addEventListener('input', ()=> renderBookings(searchInput.value));
+
+            renderBookings();
+        });
+    </style> -->
+
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Details and Payment</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #05aea0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .passenger, .payment {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .passenger input, .passenger select,
+        .payment input, .payment select {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .remove-btn {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .remove-btn:hover {
+            background: #c0392b;
+        }
+
+        .summary, .payment-section {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border: 1px solid #05aea0;
+            border-radius: 5px;
+            background: #e6f7f6;
+        }
+
+        .summary p, .payment-section p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #05aea0;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #048e8a;
+        }
+
+        .payment-method {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .payment-method input {
+            flex: 1;
+        }
+
+        .payment-method select {
+            width: 100%;
+            padding: 0.5rem;
+        }
+
+        .payment-method .dynamic-fields {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Passenger Details and Payment</h2>
+        <form id="passengerForm" action="/save_booking" method="post">
+            <div id="dynamicFields">
+                <div class="passenger" data-passenger-id="1">
+                    <input type="text" name="name" placeholder="Passenger Name" required>
+                    <input type="number" name="age" placeholder="Age" required>
+                    <select name="gender" required>
+                        <option value="">Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            </div>
+
+            <button type="button" class="btn" id="addPassenger">Add Another Passenger</button>
+            <a class="btn" href="javascript:history.back()"><button type="button" class="btn">Cancel</button></a>
+        
+
+            <div class="summary">
+                <input type="number" name="bus_id" value="{{ bus_id }}" hidden>
+                <input type="number" name="price_bus" id="price_bus" value="{{ price }}" hidden>
+                <p>Ticket Price: ₹<span id="ticketPrice">{{ price }}</span></p>
+                <p>Total Passengers: <span id="totalPassengers">1</span></p>
+                <p>Total Price: ₹<span id="totalPrice">{{ price }}</span></p>
+            </div>
+            
+            <div class="payment-section">
+                <h3>Payment Details</h3>
+
+                <!-- Payment Method Selection -->
+                <div class="payment-method">
+                    <label for="paymentMode">Choose Payment Method:</label>
+                    <select id="paymentMode" name="paymentMode" required>
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="upi">UPI</option>
+                    </select>
+
+                    <!-- Dynamic Fields based on Payment Mode -->
+                    <div class="dynamic-fields" id="cardFields">
+                        <input type="text" name="cardName" placeholder="Name on Card" required>
+                        <input type="number" name="cardNumber" placeholder="Card Number" required>
+                        <input type="month" name="expiryDate" placeholder="Expiry Date" required>
+                        <input type="number" name="cvv" placeholder="CVV" required>
+                    </div>
+
+                    <!-- <div class="dynamic-fields" id="paypalFields">
+                        <input type="email" name="paypalEmail" placeholder="PayPal Email" required>
+                    </div> -->
+
+                    <!-- <div class="dynamic-fields" id="upiFields">
+                        <input type="text" name="upiId" placeholder="UPI ID" required>
+                    </div> -->
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn">Submit Payment</button>
+            <!-- <button type="submit">Sign Up</button> -->
+        </form>
+    </div>
+
+    <script>
+        // Initial ticket price and passenger count
+        const ticketPrice = parseFloat(document.getElementById('price_bus').value);
+        let passengerCount = 1;
+
+        const totalPassengersEl = document.getElementById('totalPassengers');
+        const totalPriceEl = document.getElementById('totalPrice');
+        const dynamicFields = document.getElementById('dynamicFields');
+
+        document.getElementById('addPassenger').addEventListener('click', () => {
+            passengerCount++;
+            
+            // Create new passenger fields
+            const passengerDiv = document.createElement('div');
+            passengerDiv.classList.add('passenger');
+            passengerDiv.setAttribute('data-passenger-id', passengerCount);
+            passengerDiv.innerHTML = `
+                <input type="text" name="name" placeholder="Passenger Name" required>
+                <input type="number" name="age" placeholder="Age" required>
+                <select name="gender" required>
+                    <option value="">Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <button type="button" class="remove-btn">Remove</button>
+            `;
+            dynamicFields.appendChild(passengerDiv);
+
+            // Update passenger count and total price
+            updateSummary();
+        });
+
+        dynamicFields.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-btn')) {
+                const passengerDiv = e.target.closest('.passenger');
+                passengerDiv.remove();
+                passengerCount--;
+                updateSummary();
+            }
+        });
+
+        const updateSummary = () => {
+            totalPassengersEl.textContent = passengerCount;
+            totalPriceEl.textContent = ticketPrice * passengerCount;
+        };
+
+        // Update Payment Method Fields Dynamically
+        document.getElementById('paymentMode').addEventListener('change', (e) => {
+            const paymentMode = e.target.value;
+
+            // Hide all payment mode fields
+            document.querySelectorAll('.dynamic-fields').forEach(field => field.style.display = 'none');
+
+            // Show selected payment mode fields
+            if (paymentMode === 'card') {
+                document.getElementById('cardFields').style.display = 'block';
+            } else if (paymentMode === 'paypal') {
+                document.getElementById('paypalFields').style.display = 'block';
+            } else if (paymentMode === 'upi') {
+                document.getElementById('upiFields').style.display = 'block';
+            }
+        });
+
+        // Initial load: display card payment fields by default
+        document.getElementById('paymentMode').dispatchEvent(new Event('change'));
+
+        // Form submission (payment handling logic can be added here)
+        // document.getElementById('passengerForm').addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     alert('Payment Successful! Booking Confirmed.');
+        //     // Redirect to booking confirmation page (placeholder link)
+        //     window.location.href = '/booking-confirmation';
+    //     });
+
+//         document.getElementById('passengerForm').addEventListener('submit', (e) => {
+//     // Remove e.preventDefault() to allow form submission
+//     alert('Payment Successful! Booking Confirmed.');
+//     // Optional: Redirect to booking confirmation page (placeholder link)
+//     window.location.href = '/booking-confirmation';
+// });
+
+document.getElementById('passengerForm').addEventListener('submit', (e) => {
+    // Check if the form passes all validation checks
+    const form = e.target;
+    if (!form.checkValidity()) {
+        e.preventDefault(); // Prevent submission if form is invalid
+        alert("Please fill all required fields correctly.");
+        return;
+    }
+
+    alert('Payment Successful! Booking Confirmed.');
+});
+
+
+
+    </script>
+</body>
+</html>

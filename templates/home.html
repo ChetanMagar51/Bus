@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Online Bus Booking</title>
+    <!-- <link rel="stylesheet" href="home.css"> -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background:#05aea0;
+            color: white;
+            padding: 1rem 2rem;
+           
+        }
+        .navbar-links{
+            margin-left: 43%;
+        }
+
+        .navbar-logo a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+            
+        }
+
+        .navbar-links a:hover {
+            color: #ddd;
+        }
+
+        .logout-btn {
+            background: #ff4d4d;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: #cc0000;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: url("https://t4.ftcdn.net/jpg/03/25/66/21/240_F_325662165_nGxsUAwrbQWY75GABPc5EUHZCIuMp8kT.jpg") no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: #ffcc00;
+            color: black;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #e6b800;
+        }
+
+        /* Features Section */
+        .features {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #f9f9f9;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #007bff;
+        }
+
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            max-width: 300px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #05aea0;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            /* Ensures responsiveness */
+            margin-top: 2rem;
+        }
+
+        .search-bar input {
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 200px;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 0.75rem 1.5rem;
+            background: #ffcc00;
+            border: none;
+            border-radius: 10px;
+            color: black;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #e6b800;
+        }
+
+        /* Adjustments for Mobile Screens */
+        @media (max-width: 768px) {
+            .search-bar {
+                flex-direction: column;
+                /* Stack inputs on small screens */
+                gap: 1rem;
+                /* Add spacing between elements */
+            }
+
+            .search-bar input {
+                width: 100%;
+                /* Full width on smaller screens */
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+                /* Adjust headline size */
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+                /* Adjust paragraph size */
+            }
+        }
+
+        /* Popular Routes Section */
+        .popular-routes {
+            background: #f9f9f9;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .popular-routes h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color:#05aea0;
+        }
+
+        .routes {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            /* Ensures responsiveness */
+        }
+
+        .route-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            max-width: 250px;
+            transition: transform 0.3s;
+        }
+
+        .route-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .route-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .route-card p {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary.small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;
+            background: #ffcc00;
+            transition: background 0.3s;
+        }
+
+        .btn-primary.small:hover {
+            background: #e6b800;
+        }
+
+        
+
+
+
+/* Mobile-First Adjustments */
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    .navbar-logo a {
+        
+        font-size: 1rem;
+    }
+    
+    .navbar-links {
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+        display: none;
+        width: 90%;
+        text-align: center;
+    }
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .search-bar input {
+        width: 80%;
+    }
+
+    .route-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .route-card p {
+        font-size: 0.9rem;
+    }
+
+    footer {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .search-bar input {
+        width: 80%;
+    }
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        width:auto;
+    }
+
+    .navbar-links a {
+        padding: 1rem;
+        width: auto;
+        text-align: center;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-links.active {
+        display: flex;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+}
+    </style>
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="#">BusBooking</a>
+        </div>
+        <!-- <div class="navbar-links">
+            <a href="#">Home</a>
+            <a href="#">Book Tickets</a>
+            <a href="#">My Bookings</a>
+            <a href="#">Contact</a>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div> -->
+        <nav class="navbar-links">
+            {% if 'username' in session %}
+            <span>{{ session['username'] }}</span>
+            <a href="/mybooking">Booking Tickets</a>
+            <a href="/logout" class="logout-btn">Logout</a>
+            <!-- <a href="{{ url_for('logout') }}">Logout</a> -->
+            <a href="contact.html">Contact Us</a> 
+        {% else %} 
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="contact.html">Contact Us</a>
+        {% endif %}
+        </nav>
+        <div class="navbar-toggle" onclick="toggleNavbar()">&#9776;</div>
+    </nav>
+
+    <!-- Hero Section with Search Bar -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Find Your Perfect Bus Journey</h1>
+            <p>Search and book your bus tickets online with ease.</p>
+
+            <!-- Search Bar -->
+            <form action="search_buses" method="get" class="search-bar">
+                <input type="text" name="from" placeholder="From" required>
+                <input type="text" name="to" placeholder="To" required>
+                <input id="datePicker" type="date" name="date" required>
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <!-- Popular Routes Section -->
+    <section class="popular-routes">
+        <h2>Popular Routes</h2>
+        <div class="routes">
+            <div class="route-card">
+                <h3>Delhi to Jaipur</h3>
+                <p>Starting from ₹350</p>
+                <a href="#" class="btn-primary small">Book Now</a>
+                
+            </div>
+            <div class="route-card">
+                <h3>Mumbai to Pune</h3>
+                <p>Starting from ₹300</p>
+                <a href="#" class="btn-primary small">Book Now</a>
+            </div>
+            <div class="route-card">
+                <h3>Bangalore to Chennai</h3>
+                <p>Starting from ₹450</p>
+                <a href="#" class="btn-primary small">Book Now</a>
+            </div>
+            <div class="route-card">
+                <h3>Hyderabad to Goa</h3>
+                <p>Starting from ₹550</p>
+                <a href="#" class="btn-primary small">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 BusBooking. All rights reserved.</p>
+    </footer>
+    <script>
+        const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+            const day = String(today.getDate()).padStart(2, '0');
+    
+            // Set the min attribute of the date picker
+            const datePicker = document.getElementById('datePicker');
+            datePicker.min = `${year}-${month}-${day}`;
+
+
+            function toggleNavbar() {
+    const navbarLinks = document.querySelector('.navbar-links');
+    navbarLinks.classList.toggle('active');
+}
+        </script>
+</body>
+
+</html>

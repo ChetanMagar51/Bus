@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #05aea0;
+            margin-bottom: 20px;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: #05aea0;
+        }
+
+        .payment-method.active {
+            border-color: #05aea0;
+        }
+
+        .payment-details {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #05aea0;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #048f87;
+        }
+
+        @media (max-width: 768px) {
+            .payment-methods {
+                flex-direction: column;
+            }
+
+            .payment-method {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Payment</h2>
+
+        <!-- Payment Mode Selection -->
+        <div class="payment-methods">
+            <div class="payment-method" data-method="card">Credit/Debit Card</div>
+            <div class="payment-method" data-method="upi">UPI</div>
+            <div class="payment-method" data-method="netbanking">Net Banking</div>
+            <div class="payment-method" data-method="wallet">Wallet</div>
+        </div>
+
+        <!-- Payment Details Section -->
+        <div id="card" class="payment-details">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" placeholder="Enter your card number">
+
+            <label for="card-name">Cardholder Name</label>
+            <input type="text" id="card-name" placeholder="Enter cardholder's name">
+
+            <label for="expiry">Expiry Date</label>
+            <input type="text" id="expiry" placeholder="MM/YY">
+
+            <label for="cvv">CVV</label>
+            <input type="number" id="cvv" placeholder="Enter CVV">
+        </div>
+
+        <div id="upi" class="payment-details">
+            <label for="upi-id">UPI ID</label>
+            <input type="text" id="upi-id" placeholder="Enter your UPI ID">
+        </div>
+
+        <div id="netbanking" class="payment-details">
+            <label for="bank">Bank Name</label>
+            <input type="text" id="bank" placeholder="Enter your bank name">
+
+            <label for="account">Account Number</label>
+            <input type="text" id="account" placeholder="Enter your account number">
+        </div>
+
+        <div id="wallet" class="payment-details">
+            <label for="wallet-number">Wallet Mobile Number</label>
+            <input type="text" id="wallet-number" placeholder="Enter wallet mobile number">
+        </div>
+
+        <button class="submit-btn">Make Payment</button>
+    </div>
+
+    <script>
+        // JavaScript for Dynamic UI Updates
+        const methods = document.querySelectorAll('.payment-method');
+        const details = document.querySelectorAll('.payment-details');
+
+        methods.forEach(method => {
+            method.addEventListener('click', () => {
+                // Remove active class from all methods
+                methods.forEach(m => m.classList.remove('active'));
+                method.classList.add('active');
+
+                // Show the selected payment details
+                details.forEach(detail => detail.classList.remove('active'));
+                const selectedMethod = method.getAttribute('data-method');
+                document.getElementById(selectedMethod).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

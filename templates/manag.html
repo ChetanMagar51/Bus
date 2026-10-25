@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Buses</title>
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background-color: #f4f4f4;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .btn {
+            margin: 10px 0;
+            display: inline-block;
+            background: #05aea0;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Manage Buses</h1>
+        <button class="btn" id="addBusBtn"><a href="/addBus1">Add New Bus</a></button>
+        <button class="btn" id="addBusBtn"><a href="/admin1">Home</a></button>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ error }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <input type="hidden" id="getbus" value="{{ buses }}">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Bus ID</th>
+                    <th>Bus No</th>
+                    <th>Bus Name</th>
+                    <th>Route</th>
+                    <th>Seats</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            {% if buses %}
+            {% for bus in buses %}
+
+            <tbody id="busTable">
+                <tr>
+                    <td>{{ bus[0] }}</td>
+                    <td>{{ bus[1] }}</td>
+                    <td>{{bus[2]}}</td>
+                    <td>{{ bus[3] }} to {{ bus[4]}}</td>
+                    <td>{{bus[7]}}</td>
+                    <td>
+                        <a href="/edit/{{ bus[0] }}">Edit</a>
+                        <a href="/Delete/{{ bus[0] }}">Delete</a>
+                        <!-- <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button> -->
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <p>No buses found.</p>
+                <!-- <a class="btn" href="javascript:history.back()"><button type="button" class="btn">back to -->
+                <!-- home</button></a> -->
+                <a href="admin.html">back to Home</a>
+
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        setTimeout(function () {
+            const flashes = document.querySelectorAll('.flash');
+            flashes.forEach(flash => flash.style.display = 'none');
+        }, 10000); // 10 seconds
+    </script>
+
+</body>
+
+</html>
